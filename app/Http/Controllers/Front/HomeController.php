@@ -16,7 +16,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $carusels = Carusel::latest()->limit(4)->get();
+        $carusels = Carusel::limit(4)->get();
         $categories = Category::with('children')->where('parent_id', null)->get();
         $newProd = Product::withoutGlobalScope('store')->where('type', 'new')->limit(8)->get();
         $topProd = Product::withoutGlobalScope('store')->where('type', 'top_rated')->limit(8)->get();

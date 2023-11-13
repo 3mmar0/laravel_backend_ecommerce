@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ProductController as FrontProductController;
+use App\Http\Controllers\GlobalsController;
 use App\Models\Admin\Store;
 use Illuminate\Support\Facades\Route;
 
@@ -54,3 +55,7 @@ Route::group([
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/products', [FrontProductController::class, 'index']);
 Route::get('/products/{slug}', [FrontProductController::class, 'show']);
+
+// Globals
+Route::get('/globals/categories', [GlobalsController::class, 'categories']);
+Route::get('/globals/stores', [GlobalsController::class, 'stores']);

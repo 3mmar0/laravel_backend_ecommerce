@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
+use App\Http\Resources\Fron\CaruselResource;
 use App\Models\Admin\Carusel;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class CaruselController extends Controller
     public function index()
     {
         $carusel = Carusel::get();
-        return Helper::sendSuccess('', $carusel, 200);
+        return Helper::sendSuccess('', CaruselResource::collection($carusel), 200);
     }
 
     /**
@@ -46,7 +47,7 @@ class CaruselController extends Controller
         if (!$carusel) {
             return Helper::sendError('carusel with this id not found.', [], 404);
         }
-        return Helper::sendSuccess('', $carusel, 200);
+        return Helper::sendSuccess('', new CaruselResource($carusel), 200);
     }
 
     /**

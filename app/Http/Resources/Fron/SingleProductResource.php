@@ -25,7 +25,9 @@ class SingleProductResource extends JsonResource
             'compare_price' => $this->compare_price,
             'rating' => $this->rating,
             'type' => $this->type,
+            'options' => $this->options,
             'tags' => TagNameResource::collection($this->tags),
+            'sameProducts' => $this->sameProds,
         ];
     }
 }

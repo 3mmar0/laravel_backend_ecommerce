@@ -45,4 +45,8 @@ class Category extends Model
             $builder->where('status', '=', $filters['status']);
         }
     }
+    public function scopeActive(Builder $builder)
+    {
+        return $builder->where('status', '=', 'active');
+    }
 }

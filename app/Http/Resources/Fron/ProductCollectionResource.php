@@ -26,6 +26,7 @@ class ProductCollectionResource extends JsonResource
             'compare_price' => $this->compare_price,
             'rating' => $this->rating,
             'type' => $this->type,
+            'status' => $this->status,
         ];
     }
 }
