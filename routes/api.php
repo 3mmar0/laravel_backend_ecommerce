@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\OrderController;
 use App\Http\Controllers\Front\ProductController as FrontProductController;
 use App\Http\Controllers\GlobalsController;
 use App\Models\Admin\Store;
@@ -38,6 +39,8 @@ Route::middleware('auth:sanctum', 'auth.type:user')->group(function () {
     Route::put('/profile/update', [AuthController::class, 'profileUpdate']);
     Route::post('verify-email', [AuthController::class, 'emailVerify']);
     Route::get('send-verify-email', [AuthController::class, 'sendEmailVerify']);
+    // Order
+    Route::post('order', [OrderController::class, 'makeOrder']);
 });
 
 Route::group([

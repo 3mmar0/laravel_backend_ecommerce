@@ -21,6 +21,7 @@ class Helper
     {
         $response = ['success' => true, 'msg' => $message, 'data' => $data];
 
-        throw new HttpResponseException(response()->json($response, $code));
+        // dd($response, $code);
+        return response()->json($response, $code);
     }
 }
