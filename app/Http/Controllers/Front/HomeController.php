@@ -32,4 +32,10 @@ class HomeController extends Controller
 
         return Helper::sendSuccess('', $data, 200);
     }
+
+    public function bunners() {
+        $carusels = Carusel::limit(4)->get();
+
+        return Helper::sendSuccess('', $carusels, 200);
+    }
 }

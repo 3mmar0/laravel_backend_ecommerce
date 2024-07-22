@@ -19,6 +19,11 @@ class Address extends Model
         'country',
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);

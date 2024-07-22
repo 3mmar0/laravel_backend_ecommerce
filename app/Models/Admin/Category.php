@@ -5,6 +5,8 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class Category extends Model
 {
@@ -17,6 +19,13 @@ class Category extends Model
         "disc",
         "image",
         "status",
+    ];
+
+    protected $appends = ['image_url'];
+    protected $hidden = [
+        'image',
+        'created_at',
+        'updated_at',
     ];
 
     // Relations
@@ -48,5 +57,18 @@ class Category extends Model
     public function scopeActive(Builder $builder)
     {
         return $builder->where('status', '=', 'active');
+    }
+
+
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image) {
+            return null;
+        }
+        if (Str::startsWith($this->image, ['http://', 'https://'])) {
+            return $this->image;
+        }
+
+        return asset('storage/' . $this->image);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class Store extends Model
 {
@@ -17,6 +18,12 @@ class Store extends Model
         "logo",
         "cover",
         "status",
+    ];
+
+    protected $appends = ['logo_url', 'cover_url'];
+    protected $hidden = [
+        'logo', 'cover',  'created_at',
+        'updated_at',
     ];
 
     public function products()
@@ -37,5 +44,30 @@ class Store extends Model
     public function scopeActive(Builder $builder)
     {
         return $builder->where('status', '=', 'active');
+    }
+
+
+    public function getCoverUrlAttribute()
+    {
+        if (!$this->cover) {
+            return null;
+        }
+        if (Str::startsWith($this->cover, ['http://', 'https://'])) {
+            return $this->cover;
+        }
+
+        return asset('storage/' . $this->cover);
+    }
+
+    public function getLogoUrlAttribute()
+    {
+        if (!$this->logo) {
+            return null;
+        }
+        if (Str::startsWith($this->logo, ['http://', 'https://'])) {
+            return $this->logo;
+        }
+
+        return asset('storage/' . $this->logo);
     }
 }

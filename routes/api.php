@@ -41,6 +41,8 @@ Route::middleware('auth:sanctum', 'auth.type:user')->group(function () {
     Route::get('send-verify-email', [AuthController::class, 'sendEmailVerify']);
     // Order
     Route::post('order', [OrderController::class, 'makeOrder']);
+    Route::get('orders', [OrderController::class, 'userOrders']);
+    Route::get('order/{id}', [OrderController::class, 'userOrder']);
 });
 
 Route::group([
@@ -56,6 +58,7 @@ Route::group([
 
 // Front
 Route::get('/home', [HomeController::class, 'index']);
+Route::get('/bunners', [HomeController::class, 'bunners']);
 Route::get('/products', [FrontProductController::class, 'index']);
 Route::get('/products/{slug}', [FrontProductController::class, 'show']);
 

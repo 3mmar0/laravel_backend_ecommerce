@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
-use App\Http\Resources\Fron\SingleProductResource;
 use App\Models\Admin\Address;
 use App\Models\Admin\Order;
 use App\Models\Admin\OrderItem;
@@ -62,7 +61,7 @@ class OrderController extends Controller
                     'product_id' => $productId,
                     'quantity' => $quantity,
                     'unit_price' => $prod->price,
-                    'total_price' => $prod->price,
+                    'total_price' => $prod->price * $quantity,
                 ]);
             }
 
@@ -90,6 +89,30 @@ class OrderController extends Controller
             // dd('none', $e);
             return Helper::sendError($e->getMessage(), [], $e->getCode());
         }
+    }
+
+    public function userOrders() {
+        $user = auth()->user();
+
+        $orders = Order::with([
+            'orderItems:id,order_id,product_id,quantity,total_price',
+            'orderItems.product:id,name,slug,image,price',
+            'addresse',
+        ])->select('id', 'total_price')->where('user_id', $user->id)->get();
+
+        return Helper::sendSuccess('done', $orders, 200);
+    }
+
+    public function userOrder($id) {
+        $user = auth()->user();
+
+        $order = Order::where('id', $id)->with([
+            'orderItems:id,order_id,product_id,quantity,total_price',
+            'orderItems.product:id,name,slug,image,price',
+            'addresse',
+        ])->select('id', 'total_price')->where('user_id', $user->id)->first();
+
+        return Helper::sendSuccess('done', $order, 200);
     }
 
     /**

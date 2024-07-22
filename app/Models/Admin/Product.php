@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -24,6 +25,13 @@ class Product extends Model
         "options",
         "type",
         "status",
+    ];
+
+    protected $appends = ['image_url'];
+    protected $hidden = [
+        'image',
+        'created_at',
+        'updated_at',
     ];
 
     protected static function booted()
@@ -75,5 +83,17 @@ class Product extends Model
         if ($filters['rating'] ?? false) {
             $builder->where('rating', '<=', $filters['rating']);
         }
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image) {
+            return null;
+        }
+        if (Str::startsWith($this->image, ['http://', 'https://'])) {
+            return $this->image;
+        }
+
+        return asset('storage/' . $this->image);
     }
 }
