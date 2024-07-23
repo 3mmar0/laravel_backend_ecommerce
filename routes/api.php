@@ -32,13 +32,13 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/password/forget', [AuthController::class, 'forgetPassword']);
 Route::post('/password/reset', [AuthController::class, 'resetPassword']);
+Route::post('verify-email', [AuthController::class, 'emailVerify']);
+Route::get('send-verify-email', [AuthController::class, 'sendEmailVerify']);
 
 Route::middleware('auth:sanctum')->group(function () {
     // Auth
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::put('/profile/update', [AuthController::class, 'profileUpdate']);
-    Route::post('verify-email', [AuthController::class, 'emailVerify']);
-    Route::get('send-verify-email', [AuthController::class, 'sendEmailVerify']);
     // Order
     Route::post('order', [OrderController::class, 'makeOrder']);
     Route::get('orders', [OrderController::class, 'userOrders']);

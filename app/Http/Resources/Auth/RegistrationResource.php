@@ -20,7 +20,7 @@ class RegistrationResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'image' => $this->image_url,
+            'image_url' => $this->image_url,
             'role' => $this->role,
             'token' => $this->createToken($this->role)->plainTextToken,
         ];;

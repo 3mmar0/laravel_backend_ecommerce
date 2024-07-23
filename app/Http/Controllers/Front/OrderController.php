@@ -98,7 +98,7 @@ class OrderController extends Controller
             'orderItems:id,order_id,product_id,quantity,total_price',
             'orderItems.product:id,name,slug,image,price',
             'addresse',
-        ])->select('id', 'total_price')->where('user_id', $user->id)->get();
+        ])->select('id', 'total_price', 'status')->where('user_id', $user->id)->get();
 
         return Helper::sendSuccess('done', $orders, 200);
     }
@@ -110,7 +110,7 @@ class OrderController extends Controller
             'orderItems:id,order_id,product_id,quantity,total_price',
             'orderItems.product:id,name,slug,image,price',
             'addresse',
-        ])->select('id', 'total_price')->where('user_id', $user->id)->first();
+        ])->select('id', 'total_price', 'status')->where('user_id', $user->id)->first();
 
         return Helper::sendSuccess('done', $order, 200);
     }

@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Admin\Category;
+use App\Models\Admin\Product;
+use App\Models\Admin\Store;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,13 +16,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        // $this->call(UserSeeder::class);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Category::create([
+            'name' => 'Laptop',
+            'slug' => 'laptop',
+        ]);
 
-        $this->call(UserSeeder::class);
+        Store::create([
+            'name' => 'HP',
+            'slug' => 'hp',
+        ]);
+
+        Product::create([
+            "store_id" => 1,
+            "category_id" => 1,
+            "name" => 'hp Laptop',
+            "slug" => 'hp-laptop',
+            "disc" => 'this is a long text about labtob',
+            "image" => fake()->imageUrl(600, 600, 'laptop'),
+            "price" => 1000,
+        ]);
     }
 }

@@ -16,7 +16,7 @@ class CaruselResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => $this->image_url,
+            'image_url' => $this->image_url,
         ];
     }
 }

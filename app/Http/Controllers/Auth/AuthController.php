@@ -36,7 +36,7 @@ class AuthController extends Controller
         $user->notify(new EmailVerificationNotification());
         $us = $user->refresh();
 
-        return Helper::sendSuccess('User Created Successfully', new RegistrationResource($us), 201);
+        return Helper::sendSuccess('please check your email to verify your email.', new RegistrationResource($us), 201);
     }
 
     public function login(LoginRequest $request)
@@ -134,7 +134,10 @@ class AuthController extends Controller
 
     public function profile(Request $request)
     {
-        return $request->user();
+        $user = $request->user();
+
+        return Helper::sendSuccess('success', new RegistrationResource($user), 200);
+
     }
 
     public function profileUpdate(Request $request)
@@ -146,6 +149,6 @@ class AuthController extends Controller
         $user->update($newUser);
         $us = $user->refresh();
 
-        return Helper::sendSuccess('profile updated successfully.', $us, 200);
+        return Helper::sendSuccess('profile updated successfully.', new RegistrationResource($us), 200);
     }
 }
