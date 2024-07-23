@@ -26,6 +26,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
           protocol: ftps
-          git-ftp-args: --insecure --verbose
+          git-ftp-args: --insecure --verbose --timeout 600
           retries: 3
           retry-delay: 10
