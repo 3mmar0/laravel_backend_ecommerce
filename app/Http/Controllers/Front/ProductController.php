@@ -17,6 +17,7 @@ class ProductController extends Controller
     {
         $products = Product::withoutGlobalScope('store')->filter($request->query())->paginate(15);
 
+
         return Helper::sendSuccess('', $products);
     }
 
