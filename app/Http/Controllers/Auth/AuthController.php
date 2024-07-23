@@ -7,6 +7,7 @@ use App\Http\Helpers\Helper;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Auth\RegistrationResource;
+use App\Http\Resources\Auth\UserResource;
 use App\Models\User;
 use App\Notifications\EmailVerificationNotification;
 use App\Notifications\LoginNotification;
@@ -136,7 +137,7 @@ class AuthController extends Controller
     {
         $user = $request->user();
 
-        return Helper::sendSuccess('success', new RegistrationResource($user), 200);
+        return Helper::sendSuccess('success', new UserResource($user), 200);
 
     }
 
@@ -149,6 +150,6 @@ class AuthController extends Controller
         $user->update($newUser);
         $us = $user->refresh();
 
-        return Helper::sendSuccess('profile updated successfully.', new RegistrationResource($us), 200);
+        return Helper::sendSuccess('profile updated successfully.', new UserResource($us), 200);
     }
 }
