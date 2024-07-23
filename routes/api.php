@@ -33,7 +33,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/password/forget', [AuthController::class, 'forgetPassword']);
 Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 
-Route::middleware('auth:sanctum', 'auth.type:user')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     // Auth
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::put('/profile/update', [AuthController::class, 'profileUpdate']);

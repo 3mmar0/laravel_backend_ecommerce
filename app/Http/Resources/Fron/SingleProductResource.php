@@ -20,7 +20,7 @@ class SingleProductResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'disc' => $this->disc,
-            'image' => config('app.url') . '/storage/' . $this->image,
+            'image' => $this->image_url,
             'price' => $this->price,
             'compare_price' => $this->compare_price,
             'rating' => $this->rating,

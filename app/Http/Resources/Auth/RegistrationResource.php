@@ -20,11 +20,9 @@ class RegistrationResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'gender' => $this->gender,
-            'image' => $this->image,
-            'birthday' => $this->birth_day,
+            'image' => $this->image_url,
             'role' => $this->role,
-            'token' => $this->createToken('weed')->plainTextToken,
+            'token' => $this->createToken($this->role)->plainTextToken,
         ];;
     }
 }

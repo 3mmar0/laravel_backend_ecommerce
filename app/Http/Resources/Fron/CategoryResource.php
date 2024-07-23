@@ -18,7 +18,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'image' => config('app.url') . '/storage/' . $this->image,
+            'image' => $this->image_url,
         ];
         if (!$this->parent_id) {
             $data['children'] = CategoryResource::collection($this->children);

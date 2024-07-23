@@ -29,15 +29,7 @@ class RegisterRequest extends FormRequest
             'email' =>  'required|email|max:200|unique:users,email',
             'phone' => 'nullable|unique:users,phone|digits_between:10,20',
             'password' => 'required|min:6',
-            'country' => 'nullable|string|min:2|max:2',
-            'city' => 'nullable|string',
-            'state' => 'nullable|string',
-            'street' => 'nullable|string',
-            'birthday' => 'nullable|date|before:today',
-            'postal_code' => 'nullable|numeric',
-            'lang' => 'nullable|string|min:2|max:3',
             'image' => 'nullable|image',
-            'gender' => 'nullable|in:male,female',
         ];
     }
 
