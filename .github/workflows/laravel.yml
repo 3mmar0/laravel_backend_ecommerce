@@ -12,11 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-        with:
-          php-version: '8.2'
+      - name: Deploy
+        uses: actions/checkout@v3
 
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -24,8 +21,4 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /
-          protocol: ftps
-          git-ftp-args: --insecure --verbose --timeout 600
-          retries: 3
-          retry-delay: 10
+          server-dir: /ecommerce-api/
