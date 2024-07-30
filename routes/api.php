@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\FavoriteController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\OrderController;
@@ -48,6 +49,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('favorite/{id}', [FavoriteController::class, 'addToFav']);
     Route::get('favorite-user', [FavoriteController::class, 'getUserFav']);
     Route::get('favorite-remove/{id}', [FavoriteController::class, 'removeFromFav']);
+    // Cart
+    Route::post('cart/{id}', [CartController::class, 'addToCart']);
+    Route::get('cart-user', [CartController::class, 'getUserCart']);
+    Route::get('cart-remove/{id}', [CartController::class, 'removeFromCart']);
+    Route::post('cart-update/{id}', [CartController::class, 'updateQtyAtCart']);
 });
 
 Route::group([

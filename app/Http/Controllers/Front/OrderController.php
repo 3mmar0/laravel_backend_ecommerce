@@ -23,23 +23,22 @@ class OrderController extends Controller
     {
         try {
             //code...
-            // Extracting nested address data
-            $address = $request->address;
-            // dd($address);
-            $firstName = $address['first_name'];
-            $lastName = $address['last_name'];
-            $phone = $address['phone'];
-            $addressLine = $address['address'];
-            $country = $address['country'];
+            $user = auth()->user();
 
-            // Extracting and parsing products data
-            $products = $request->products;
+            $user_cart = DB::table('carts')
+                ->where('user_id', $user->id)
+                ->get();
+            // Extracting nested address data
+            $firstName = $request->first_name;
+            $lastName = $request->last_name;
+            $phone = $request->phone;
+            $addressLine = $request->address;
+            $country = $request->country;
 
             $total = 0;
-            foreach ($products as $key => $value) {
-                $product = $this->getValues($value);
-                $productId = $product['product_id'];
-                $quantity = $product['quantity'];
+            foreach ($user_cart as $key => $value) {
+                $productId = $value->product_id;
+                $quantity = $value->quantity;
                 $prod = Product::where('id', $productId)->select('price')->first();
                 $total += $prod->price * $quantity;
             }
@@ -51,10 +50,9 @@ class OrderController extends Controller
                 'total_price' => $total,
             ]);
 
-            foreach ($products as $key => $value) {
-                $product = $this->getValues($value);
-                $productId = $product['product_id'];
-                $quantity = $product['quantity'];
+            foreach ($user_cart as $key => $value) {
+                $productId = $value->product_id;
+                $quantity = $value->quantity;
                 $prod = Product::where('id', $productId)->select('price')->first();
                 OrderItem::create([
                     'order_id' => $order->id,
@@ -91,7 +89,8 @@ class OrderController extends Controller
         }
     }
 
-    public function userOrders() {
+    public function userOrders()
+    {
         $user = auth()->user();
 
         $orders = Order::with([
@@ -103,7 +102,8 @@ class OrderController extends Controller
         return Helper::sendSuccess('done', $orders, 200);
     }
 
-    public function userOrder($id) {
+    public function userOrder($id)
+    {
         $user = auth()->user();
 
         $order = Order::where('id', $id)->with([
