@@ -74,5 +74,6 @@ Route::get('/products', [FrontProductController::class, 'index']);
 Route::get('/products/{slug}', [FrontProductController::class, 'show']);
 
 // Globals
+Route::get('/globals/categories/{slug}', [GlobalsController::class, 'categoryProducts']);
 Route::get('/globals/categories', [GlobalsController::class, 'categories']);
 Route::get('/globals/stores', [GlobalsController::class, 'stores']);
