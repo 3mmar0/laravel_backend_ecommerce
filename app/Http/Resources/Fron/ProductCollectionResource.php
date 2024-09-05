@@ -16,6 +16,7 @@ class ProductCollectionResource extends JsonResource
     {
         // dd($this);
         return [
+            'id' => $this->id,
             'store' => $this->store->name ?? null,
             'category' => $this->category->name ?? null,
             'name' => $this->name,
